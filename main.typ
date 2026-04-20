@@ -4,7 +4,7 @@
 #import "@preview/codly-languages:0.1.10"
 
 #show: doc => conf(
-  heading: "主标题",
+  head: "主标题",
   title: "副标题",
   author: "小明",
   student-id: "1145141314",
