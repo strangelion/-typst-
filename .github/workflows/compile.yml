@@ -1,0 +1,34 @@
+name: Compile Typst Document
+
+# 触发条件：当推送到 main 分支、发起 PR，或手动触发时执行
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 获取你的仓库代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. 安装 Typst 环境
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v3
+
+      # 3. 编译 Typst 文件
+      # 注意：如果你的主文件名不是 main.typ，请将下面的 main.typ 替换为你实际的文件名
+      - name: Compile document
+        run: typst compile main.typ output.pdf
+
+      # 4. 上传编译好的 PDF 作为产物 (Artifact)
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-document
+          path: output.pdf
