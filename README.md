@@ -48,14 +48,15 @@ typst compile main.typ paper.pdf
 ```
 university-typst-template/
 ├── main.typ           # 论文入口文件，用于引入模板并管理各章节
-├── template.typ       # 核心样式模板，控制全文字体、字号、间距与封面排版[reference:4]
+├── template.typ       # 核心样式模板，控制全文字体、字号、间距与封面排版
 ├── abstract.typ       # 论文摘要内容
 ├── acknowledgments.typ# 致谢部分
-├── chapter*.typ       # 论文各章节（1至6章），具体内容可参考“绪论”示例[reference:5]
-├── references.yml     # 参考文献数据源（YAML格式）[reference:6]
-├── logo.png           # 封面校徽图片[reference:7]
-├── fonts/             # 存放自定义字体文件的目录[reference:8]
-├── typst.toml         # 配置文件，用于设置自定义字体路径（如“fonts”目录）[reference:9]
+├── chapter*.typ       # 论文各章节（1至6章），具体内容可参考“绪论”示例
+├── references.yml     # 参考文献数据源（YAML格式）
+├── references.bib     # 参考文献数据源（BIB格式）
+├── logo.png           # 封面校徽图片
+├── fonts/             # 存放自定义字体文件的目录
+├── typst.toml         # 配置文件，用于设置自定义字体路径（如“fonts”目录）
 └── LICENSE            # 项目许可证
 ```
 
@@ -65,7 +66,7 @@ university-typst-template/
 
 ```typst
 #show: doc => conf(
-  heading: "本科毕业设计",    // 论文封面大标题
+  head: "本科毕业设计",    // 论文封面大标题
   title: "论文题目",          // 论文具体题目
   author: "作者姓名",         // 作者名
   student-id: "学号",        // 学号
