@@ -4,6 +4,9 @@ name: Compile Typst
 on:
   workflow_dispatch: 
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 # 并发控制：如果前一个还没跑完又推了新的，就取消前一个
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
