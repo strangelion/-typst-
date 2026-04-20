@@ -91,7 +91,7 @@ university-typst-template/
 
 ## 特殊方式
 - Github Action:
- - 可以clone该项目，修改好内容后手动触发action获得包含PDF的压缩包（何意为？）
+  - 可以clone该项目，修改好内容后手动触发action获得包含PDF的压缩包（何意为？）
 
 ## 许可证
 
