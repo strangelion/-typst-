@@ -18,10 +18,10 @@ set text(lang: "zh", region: "cn")
   student-id: "",
   major: "",
   advisor: "",
-  date: "2020年 01月 01日",
+  date: "",
   doc,
 ) = {
-  // 1. 页面设置 (等同于 geometry)
+  // 1. 页面设置
   set page(
     paper: "a4",
     margin: (top: 3cm, bottom: 3cm, left: 2.5cm, right: 2.5cm),
