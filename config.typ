@@ -11,7 +11,7 @@
   author: "张三",
   student-id: "1145141314",
   // 指导教师
-  supervisor: "罗 教授",
+  supervisor: "罗教授",
   // 日期（自动生成当前年份）
   date: datetime.today().display("[year]年[month]月[day]日"),
   // 其他可选字段
