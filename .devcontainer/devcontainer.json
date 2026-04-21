@@ -1,20 +1,13 @@
 {
-    // 指定使用微软官方提供的轻量级通用开发容器镜像
     "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
-    
-    // 在容器创建后执行的命令，用于安装 Typst
     "postCreateCommand": "curl -fsSL https://github.com/typst/typst/releases/download/v0.13.1/typst-x86_64-unknown-linux-musl.tar.xz | tar -xJ -C /usr/local/bin && chmod +x /usr/local/bin/typst",
-    
-    // 为 VS Code 推荐并自动安装扩展，提升编辑体验
     "customizations": {
         "vscode": {
             "extensions": [
-                "tinymist.typst",       // Typst 官方插件，提供实时预览和语法高亮
-                "mathematic.vscode-pdf" // 用于在 VS Code 内预览生成的 PDF
+                "tinymist.typst",
+                "mathematic.vscode-pdf"
             ]
         }
     },
-    
-    // 可选：设置转发的端口（Typst 预览通常使用 3000 端口）
     "forwardPorts": [3000]
 }
