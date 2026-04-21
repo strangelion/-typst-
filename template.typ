@@ -11,7 +11,7 @@ set text(lang: "zh", region: "cn")
   }
 }
 
-#let conf(
+#let template(
   head: "",
   title: "",
   author: "",
@@ -34,7 +34,7 @@ set text(lang: "zh", region: "cn")
   // 3. 封面生成
   align(center)[
     #v(2cm)
-    #image("logo.png", width: 80%)
+    #image("resource\logo.png", width: 80%)
     #v(1cm)
 
     #text(size: 26pt, weight: "bold")[#head] \
@@ -126,10 +126,10 @@ set text(lang: "zh", region: "cn")
   // 设置图表名称的样式
   show figure.where(kind: image): set figure(supplement: [图])
   show figure.where(kind: table): set figure(supplement: [表])
-  
+
   // 设置图表标题的间隔符，例如“图 1-1：标题”
   show figure.caption: it => [
-    #set text(size: 10.5pt,font: ("Times New Roman","SimSun"))
+    #set text(size: 10.5pt, font: ("Times New Roman", "SimSun"))
     #it.supplement #context it.counter.display(it.numbering) ：#it.body
   ]
 
