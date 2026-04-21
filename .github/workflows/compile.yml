@@ -31,7 +31,7 @@ jobs:
 
       # 4. 编译 Typst 文件
       - name: Compile document
-        run: typst compile --font-path ./fonts main.typ output.pdf
+        run: typst compile --font-path ./resource/fonts main.typ output.pdf
 
       # 5. 上传编译好的 PDF 作为产物 (Artifact)
       - name: Upload PDF
