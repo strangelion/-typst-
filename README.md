@@ -126,4 +126,4 @@ university-typst-template/
 
 ## 许可证
 
-该项目基于Apache-2.0 许可证开源。
+该项目基于 MIT 许可证开源。
