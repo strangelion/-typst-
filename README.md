@@ -70,27 +70,38 @@ university-typst-template/
 ├── fonts/                    # 自定义字体目录
 ├── main.typ                  # 论文入口文件
 ├── template.typ              # 核心样式模板
-├── config.typ               # 集中管理元数据（建议新增）
+├── config.typ                # 集中管理元数据
 ├── references.bib            # 文献数据库
 ├── typst.toml                # 项目配置文件
-├── logo.png                  # 静态资源
+├── resource/                 # 静态资源
+│   └──  logo.png
 └── README.md
 ```
 
 ## 配置说明
 
-你可以在 main.typ 文件中修改论文的基本信息：
+你可以在 config.typ 文件中修改论文的基本信息：
 
 ```typst
-#show: doc => conf(
-  head: "本科毕业设计",    // 论文封面大标题
-  title: "论文题目",          // 论文具体题目
-  author: "作者姓名",         // 作者名
-  student-id: "学号",        // 学号
-  major: "专业名称",          // 专业
-  advisor: "指导教师姓名",    // 指导教师
-  date: "2026年 06月 01日", // 提交日期
-  doc,
+#let conf = (
+  // 学校信息
+  school: "XX大学",
+  college: "社会科学与技术学院",
+  major: "宇宙社会学",
+  // 论文基本信息
+  head: "主标题",
+  title: "副标题",
+  title-en: "English Title",
+  // 作者信息
+  author: "张三",
+  student-id: "1145141314",
+  // 指导教师
+  supervisor: "罗教授",
+  // 日期（自动生成当前年份）
+  date: datetime.today().display("[year]年[month]月[day]日"),
+  // 其他可选字段
+  keywords: ("Typst", "论文模板", "排版"),
+  keywords-en: ("Typst", "Thesis Template", "Typesetting"),
 )
 ```
 
