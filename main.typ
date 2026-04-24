@@ -5,24 +5,20 @@
 #show: doc => template(
   doc,
   head: conf.head,
-  head_visible: conf.head_visible,
   title: conf.title,
-  title_visible: conf.title_visible,
   title_en: conf.title_en,
-  title_en_visible: conf.title_en_visible,
+  school_semester: conf.school_semester,
   school: conf.school,
-  school_visible: conf.school_visible,
+  course_id: conf.course_id,
+  course_name: conf.course_name,
   college: conf.college,
-  college_visible: conf.college_visible,
   author: conf.author,
-  author_visible: conf.author_visible,
   student_id: conf.student_id,
-  student_id_visible: conf.student_id_visible,
+  class: conf.class,
   major: conf.major,
-  major_visible: conf.major_visible,
   supervisor: conf.supervisor,
-  supervisor_visible: conf.supervisor_visible,
   date: conf.date,
+  info_order: conf.info-order, // 传递顺序数组
 )
 
 // 前言部分（罗马数字页码）
@@ -58,9 +54,8 @@
 
 // 参考文献部分
 #bibliography(
-  "references.bib",
+  "references.bib", // 参考文献文件路径,可以使用yml格式的参考文献文件，启用记得禁用前面bib格式参考文献（不太建议用这个）
   title: "参考文献",
   //full: true,//如果要引入文件内所有参考文献可以启用本行
   style: "gb-7714-2015-numeric",
 )
-//#bibliography("references.yml",title: "参考文献",style: "gb-7714-2015-numeric",)//yml格式参考文献启用记得禁用前面bib格式参考文献（不太建议用这个）
