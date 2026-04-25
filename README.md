@@ -88,21 +88,21 @@ university-typst-template/
 
 ```typst
 #let conf = (
-  // 学校信息
-  school: "XX大学",
-  college: "社会科学与技术学院",
-  major: "宇宙社会学",
-  // 论文基本信息
-  head: "主标题",
-  title: "副标题",
-  title-en: "English Title",
-  // 作者信息
-  author: "张三",
-  student-id: "1145141314",
-  // 指导教师
-  supervisor: "罗教授",
-  // 日期（自动生成当前年份）
-  date: datetime.today().display("[year]年[month]月[day]日"),
+  head: (name: "主标题", value: "主标题", visible: true, depth: 1), //主标题,main title
+  title: (name: "副标题", value: "副标题", visible: true, depth: 2), //副标题,subtitle
+  title_en: (name: "英文标题", value: "English Title", visible: false, depth: 3), //英文标题,English title
+  school_semester: (name: "学期信息", value: "2023-2024学年第一学期", visible: false, depth: 4), //学期信息,semester information
+  school: (name: "学校名称", value: "XX大学", visible: true, depth: 5), //学校名称,school name
+  course_id: (name: "课程号", value: "课程ID", visible: true, depth: 6), //课程ID,course ID
+  course_name: (name: "课程名称", value: "课程名称", visible: true, depth: 7), //课程名称,course name
+  college: (name: "学院名称", value: "社会科学与技术学院", visible: true, depth: 8), //学院名称,college name
+  author: (name: "学生姓名", value: "张三", visible: true, depth: 9), //学生姓名,student name
+  student_id: (name: "学号", value: "1145141314", visible: true, depth: 10), //学号,student ID
+  class: (name: "班级信息", value: "XX班", visible: true, depth: 11), //班级信息,class information
+  major: (name: "专业名称", value: "宇宙社会学", visible: true, depth: 12), //专业名称,major name
+  supervisor: (name: "指导教师", value: "罗教授", visible: true, depth: 13), //指导教师姓名,supervisor name
+  date: (name: "日期", value: datetime.today().display("[year]年[month]月[day]日"), visible: true, depth: 14), //日期，默认为当天日期，可以根据需要修改,date, default is today's date, you can modify it as needed
+  info-order: (4, 6, 7, 13, 10, 9, 11),
 )
 ```
 
