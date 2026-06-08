@@ -41,10 +41,10 @@ cd HeBeiUniversity-template-Typst
 编辑 `config.typ`，修改个人信息：
 
 ```typst
-head: (name: "主标题", value: "物理科学与技术学院期末", visible: true, depth: 1),
+head: (name: "主标题", value: "XXXX期末", visible: true, depth: 1),
 title: (name: "副标题", value: "考核论文", visible: true, depth: 2),
-author: (name: "学生姓名", value: "王文轩", visible: true, depth: 9),
-student-id: (name: "学号", value: "20231301022", visible: true, depth: 10),
+author: (name: "学生姓名", value: "XXX", visible: true, depth: 9),
+student-id: (name: "学号", value: "XXXXXXXXXX", visible: true, depth: 10),
 ```
 
 - `value` — 字段内容
