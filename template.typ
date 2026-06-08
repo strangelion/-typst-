@@ -183,7 +183,7 @@
       let num = if it.numbering != none {
         numbering("1", ..counter(heading).at(it.location()))
       }
-      pagebreak(weak: true)
+      colbreak(weak: true)
       v(15pt)
       align(center)[
         #text(size: 16pt)[
