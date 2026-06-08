@@ -8,7 +8,7 @@ description = "一个为本科生毕业论文设计的 Typst 排版模板。"
 repository = "https://github.com/strangelion/university-typst-template"
 keywords = ["thesis", "university", "chinese"]
 categories = ["thesis"]
-compiler = "0.13.0"
+compiler = "0.14.0"
 exclude = [".devcontainer", "assets"]
 font-paths = ["resource/fonts"]
 
