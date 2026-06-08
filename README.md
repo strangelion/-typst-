@@ -1,126 +1,156 @@
-# 河北大学论文 Typst 模板
+# HeBeiUniversity-template-Typst
 
-一个为本科生毕业论文设计的 Typst 排版模板。它基于中文学术规范，帮助使用者快速完成论文的封面、章节和参考文献排版，让使用者专注于写作本身。
+河北大学 **非官方** Typst 论文/考核模板。
+
+基于中文学术规范设计，帮助快速完成论文封面、章节排版和参考文献，让使用者专注于写作本身。
+
+> ⚠️ **免责声明**：本模板为个人制作，与河北大学官方无关。使用前请确认是否符合您的课程/学院的具体要求。
+
+---
 
 ## 特点
 
-- 简洁写作：全程使用标记式语法，告别复杂的 LaTeX 命令。
-- 符合学术规范：内置了中文论文标准格式（封面、各级标题、图表编号等）。
-- 快速渲染：基于 Typst 引擎，实时编译，所见即所得。
-- 完整的章节结构：预设了从“摘要”到“致谢”的完整文档框架。
-- 参考文献支持：集成 GB/T 7714 中文国标引用样式。
+- **简洁写作** — 全程使用标记式语法，告别复杂的 LaTeX 命令
+- **符合学术规范** — 内置中文论文标准格式（封面、各级标题、图表编号等）
+- **快速渲染** — 基于 Typst 引擎，实时编译，所见即所得
+- **完整的章节结构** — 预设从"摘要"到"致谢"的完整文档框架
+- **参考文献支持** — 集成 GB/T 7714 中文国标引用样式
+- **灵活配置** — 封面信息、显示顺序、附加功能（装订线、评分表）均可自由调整
 
-## 使用方法
+---
 
-1. 环境准备
+## 快速开始
 
-本项目需要安装 Typst。它提供本地编译与在线编辑两种使用方式：
+### 1. 环境准备
 
-- 本地安装：
-  - Windows：从 GitHub Releases 下载 typst-x86_64-pc-windows-msvc.zip，解压后将路径添加到系统 PATH。
-  - macOS/Linux：可以使用包管理器（如 Homebrew、APT、Pacman）进行安装，也可以使用 Rust 的 Cargo 工具通过 cargo install typst-cli 命令安装。
-  - 安卓: 使用termux安装一个Linux环境再参照Linux教程使用
-  - 验证安装：在终端中输入 typst -V，若显示版本号则说明安装成功。
-  - VSCode 插件（推荐）：在 VSCode 扩展商店中搜索并安装 “Tinymit Typst”。它会在你保存代码时自动刷新 PDF 预览，带来类似 Typora 的写作体验。
-- 网页使用：
-  - 官方网站 https://typst.app/play/
-  - 创建GitHub代码空间https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=strangelion/university-typst-template
+- **本地安装**（推荐）：
+  - Windows：[GitHub Releases](https://github.com/typst/typst/releases) 下载 `typst-x86_64-pc-windows-msvc.zip`，解压后加入 PATH
+  - macOS/Linux：`brew install typst` / `cargo install typst-cli`
+  - VS Code 插件（推荐）：安装 "Tinymist Typst"，保存即自动刷新预览
+- **在线使用**：[Typst 官网](https://typst.app/) 或 [GitHub Codespaces](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=strangelion/HeBeiUniversity-template-Typst)
 
-2. 获取模板
-
-你可以选择以下任一方式：
-
-- 下载 ZIP：直接下载本项目代码并解压。
-- 克隆仓库：
-  ```bash
-  git clone https://github.com/strangelion/university-typst-template.git
-  ```
--调用模板：
-  ```typst
-  #import "@preview/strangelion:0.1.0": *
-  ```
-
-3. 编译论文
-
-进入项目目录后，执行编译命令即可生成 PDF 文件：
+### 2. 获取模板
 
 ```bash
-cd university-typst-template
+git clone https://github.com/strangelion/HeBeiUniversity-template-Typst.git
+cd HeBeiUniversity-template-Typst
+```
+
+### 3. 配置信息
+
+编辑 `config.typ`，修改个人信息：
+
+```typst
+head: (name: "主标题", value: "物理科学与技术学院期末", visible: true, depth: 1),
+title: (name: "副标题", value: "考核论文", visible: true, depth: 2),
+author: (name: "学生姓名", value: "王文轩", visible: true, depth: 9),
+student-id: (name: "学号", value: "20231301022", visible: true, depth: 10),
+```
+
+- `value` — 字段内容
+- `visible` — `true` 显示，`false` 隐藏
+- `info-order` — 控制封面信息的显示顺序（如 `(4, 6, 7, 13, 10, 9, 11)`）
+
+### 4. 编译
+
+```bash
 typst compile main.typ paper.pdf
 ```
-如果出现字体问题手动安装字体或用这个：
+
+**字体问题**：若编译报字体错误，请手动指定字体路径：
 
 ```bash
-cd university-typst-template
-typst compile --font-path ./content/fonts main.typ paper.pdf
+typst compile --font-path ./resource/fonts main.typ paper.pdf
 ```
 
-若你安装了 VSCode 插件，打开 main.typ 文件后，插件会自动启动预览服务。之后你可以在浏览器中实时查看论文排版效果。使用插件注意固定主文件以避免产生不需要的PDF文件（Ctrl + Shift + P打开命令面板）：
-- Typst:将主文件固定到当前打开的文档 Typst: Pin the Main File to the Currently Open Document 
-- Typst:取消固定主文件 Typst: Unpin the main file
+使用 VS Code 插件时，固定 `main.typ` 为主文件（`Ctrl+Shift+P` → "Typst: Pin the Main File to the Currently Open Document"），之后会自动预览。
+
+---
 
 ## 项目结构
 
 ```
-university-typst-template/
-├── .devcontainer/            # Codespaces 配置目录
-├── content/                  # 各章节内容文件
-│   ├── abstract.typ
-│   ├── acknowledgments.typ
-│   ├── chapter1.typ
-│   └── ...
-├── modules/                  # 自定义模块与函数
-│   └── utils.typ
-├── fonts/                    # 自定义字体目录
+HeBeiUniversity-template-Typst/
 ├── main.typ                  # 论文入口文件
 ├── template.typ              # 核心样式模板
-├── config.typ                # 集中管理元数据
+├── config.typ                # 元数据配置
 ├── references.bib            # 文献数据库
 ├── typst.toml                # 项目配置文件
-├── resource/                 # 静态资源
-│   └──  logo.png
+├── resource/
+│   ├── logo.png              # 河北大学 Logo
+│   └── fonts/                # 自定义字体
+├── content/
+│   ├── abstract.typ          # 中英文摘要
+│   ├── acknowledgments.typ   # 致谢
+│   ├── chapter1.typ~6.typ    # 各章内容
+├── modules/
+│   └── utils.typ             # 工具函数
 └── README.md
 ```
 
+---
+
 ## 配置说明
 
-你可以在 config.typ 文件中修改论文的基本信息：
+### 封面信息
+
+所有字段在 `config.typ` 的 `conf` 字典中统一管理，修改一次即可全局生效。
+
+| depth | 字段 | 说明 |
+|-------|------|------|
+| 1 | head | 主标题 |
+| 2 | title | 副标题 |
+| 3 | title-en | 英文标题 |
+| 4 | school-semester | 学期信息 |
+| 5 | school | 学校名称 |
+| 6 | course-id | 课程号 |
+| 7 | course-name | 课程名称 |
+| 8 | college | 学院名称 |
+| 9 | author | 学生姓名 |
+| 10 | student-id | 学号 |
+| 11 | class | 班级信息 |
+| 12 | major | 专业名称 |
+| 13 | supervisor | 指导教师 |
+
+### 信息显示顺序
+
+通过 `info-order` 控制封面信息表格的排列顺序（填入 depth 值），例如：
 
 ```typst
-#let conf = (
-  head: (name: "主标题", value: "主标题", visible: true, depth: 1), //主标题,main title
-  title: (name: "副标题", value: "副标题", visible: true, depth: 2), //副标题,subtitle
-  title_en: (name: "英文标题", value: "English Title", visible: false, depth: 3), //英文标题,English title
-  school_semester: (name: "学期信息", value: "2023-2024学年第一学期", visible: false, depth: 4), //学期信息,semester information
-  school: (name: "学校名称", value: "XX大学", visible: true, depth: 5), //学校名称,school name
-  course_id: (name: "课程号", value: "课程ID", visible: true, depth: 6), //课程ID,course ID
-  course_name: (name: "课程名称", value: "课程名称", visible: true, depth: 7), //课程名称,course name
-  college: (name: "学院名称", value: "社会科学与技术学院", visible: true, depth: 8), //学院名称,college name
-  author: (name: "学生姓名", value: "张三", visible: true, depth: 9), //学生姓名,student name
-  student_id: (name: "学号", value: "1145141314", visible: true, depth: 10), //学号,student ID
-  class: (name: "班级信息", value: "XX班", visible: true, depth: 11), //班级信息,class information
-  major: (name: "专业名称", value: "宇宙社会学", visible: true, depth: 12), //专业名称,major name
-  supervisor: (name: "指导教师", value: "罗教授", visible: true, depth: 13), //指导教师姓名,supervisor name
-  date: (name: "日期", value: datetime.today().display("[year]年[month]月[day]日"), visible: true, depth: 14), //日期，默认为当天日期，可以根据需要修改,date, default is today's date, you can modify it as needed
-  info-order: (4, 6, 7, 13, 10, 9, 11),
-)
+info-order: (4, 6, 7, 13, 10, 9, 11),
 ```
 
-所有个人信息在这里只需修改一次，即可在封面和信息表格中全局生效。
+### 附加功能
+
+```typst
+add-on: (1, 2),  // 1 = 装订线，2 = 评分表
+evaluation: (evaluation-data, evaluation-style),  // 评分表内容与样式
+```
+
+---
 
 ## 参考文献
 
-模板默认使用 GB/T 7714-2015 中文国标引用样式（numeric）。你只需要在references.bib(references.yml默认关闭) 文件中填入文献信息，并在正文中使用 #cite 引用即可。
+使用 GB/T 7714-2015 中文国标引用样式（numeric）。在 `references.bib` 中填入文献信息，正文用 `#cite` 引用：
 
-## 贡献指南
+```typst
+根据文献 @ref1 的研究……
+```
 
-欢迎提交 Pull Request 或 Issue 来完善这个模板！无论是修复 Bug、改进样式还是补充文档，都感激不尽。
+如需引用全部文献，在 `main.typ` 中启用：
 
-## 特殊方式
-- Github Action:
-  - 可以clone该项目，修改好内容后手动触发action获得包含PDF的压缩包。（何意为？）
-  - 不要pull本项目时使用action，会对本项目action产生影响。
+```typst
+#bibliography("references.bib", title: "参考文献", full: true, style: "gb-7714-2015-numeric")
+```
 
-## 许可证
+---
 
-该项目基于 MIT 许可证开源。
+## LaTeX 版本
+
+本模板的 LaTeX 移植版：[HeBeiUniversity-template-LaTeX](https://github.com/strangelion/HeBeiUniversity-template-LaTeX)
+
+---
+
+## License
+
+MIT
