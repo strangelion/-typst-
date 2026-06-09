@@ -139,62 +139,64 @@
     #v(1fr)
 
     #context {
-      // 1. 定义所有可能的字段映射，Key 为 depth 值 [cite: 1, 2]
-      let all-fields = (
-        "4": (justify-text(school-semester.name) + "：", school-semester),
-        "5": (justify-text(school.name) + "：", school),
-        "6": (justify-text(course-id.name) + "：", course-id),
-        "7": (justify-text(course-name.name) + "：", course-name),
-        "8": (justify-text(college.name) + "：", college),
-        "9": (justify-text(author.name) + "：", author),
-        "10": (justify-text(student-id.name) + "：", student-id),
-        "11": (justify-text(class.name) + "：", class),
-        "12": (justify-text(major.name) + "：", major),
-        "13": (justify-text(supervisor.name) + "：", supervisor),
-      )
-      // 2. 筛选出当前可见的字段用于计算最大宽度 [cite: 8]
-      let visible-items = all-fields.values().filter(it => it.at(1).visible)
-      let max-width = if visible-items.len() > 0 {
-        let widths = visible-items.map(it => measure(block(width: auto, text(size: 14pt)[#it.at(1).value])).width)
-        calc.max(..widths) + 20pt
-      } else {
-        0pt
+      // 1. 标签名（不含冒号）和值的映射
+      let all-names = ("4": school-semester.name, "5": school.name, "6": course-id.name, "7": course-name.name, "8": college.name, "9": author.name, "10": student-id.name, "11": class.name, "12": major.name, "13": supervisor.name)
+      let all-data = ("4": school-semester, "5": school, "6": course-id, "7": course-name, "8": college, "9": author, "10": student-id, "11": class, "12": major, "13": supervisor)
+
+      // 2. 测量可见字段的最大宽度
+      let visible = info-order.map(d => str(d)).filter(k => k in all-data and all-data.at(k).visible)
+      let left-nats = visible.map(k => measure(block(width: auto, text(size: 14pt, all-names.at(k)))).width)
+      let right-nats = visible.map(k => measure(block(width: auto, text(size: 14pt, all-data.at(k).value))).width)
+      let left-max = if left-nats.len() > 0 { calc.max(..left-nats) } else { 70pt }
+      let right-max = if right-nats.len() > 0 { calc.max(..right-nats) + 10pt } else { 150pt }
+
+      // 3. 两端对齐：将字符串均匀展开至 target 宽度（不设上限）
+      let justify-to(body, target) = {
+        if type(body) != str { return body }
+        let chars = body.clusters()
+        let n = chars.len()
+        if n < 2 { return body }
+        let nat = measure(block(width: auto, text(size: 14pt, body))).width
+        let extra = calc.max(target - nat, 0pt)
+        let gap = extra / (n - 1)
+        for (i, char) in chars.enumerate() {
+          char
+          if i < n - 1 { h(gap) }
+        }
       }
 
-      // 3. 定义行渲染函数 [cite: 9, 10]
-      let info-row(label, value) = {
+      // 4. 行渲染：左[标签两端对齐]  中[冒号]  右[值居中+定宽下划线]
+      let info-row(name, value) = {
         grid(
-          columns: (80pt, max-width),
+          columns: (left-max, auto, right-max),
           column-gutter: 0pt,
-          align: (right + horizon, center + horizon),
-          text(weight: "bold", size: 14pt)[#label],
-          block(width: 100%, stroke: (bottom: 1pt), inset: (bottom: 4pt))[
+          align: (right + horizon, center + horizon, center + horizon),
+          text(size: 14pt, weight: "bold")[#justify-to(name, left-max)],
+          text(size: 14pt, weight: "bold")[：],
+          block(width: right-max, stroke: (bottom: 1pt), inset: (bottom: 4pt), align(center + horizon)[
             #set text(size: 14pt)
-            #justify-text(value)
-          ],
+            #value
+          ]),
         )
       }
 
-      // 4. 根据 info-order 的顺序循环渲染
+      // 5. 循环渲染
       for d in info-order {
         let key = str(d)
-        if key in all-fields {
-          let (label, data) = all-fields.at(key)
+        if key in all-data {
+          let data = all-data.at(key)
           if data.visible {
-            info-row(label, data.value)
+            info-row(all-names.at(key), data.value)
             v(1.2em)
           } else {
             if data.value != none {
-              // 如果字段不可见但有值，仍占位但不显示内容
               grid(
-                columns: (80pt, max-width),
+                columns: (left-max, auto, right-max),
                 column-gutter: 0pt,
-                align: (right + horizon, center + horizon),
-                text(weight: "bold", size: 14pt)[#label],
-                block(width: 100%, stroke: (bottom: 1pt), inset: (bottom: 4pt))[
-                  #set text(size: 14pt)
-                  #v(1.2em) // 占位符，保持行高一致
-                ],
+                align: (right + horizon, center + horizon, center + horizon),
+                text(size: 14pt, weight: "bold")[#justify-to(all-names.at(key), left-max)],
+                text(size: 14pt, weight: "bold")[：],
+                block(width: right-max, stroke: (bottom: 1pt), inset: (bottom: 4pt))[#v(1.2em)],
               )
             }
           }
