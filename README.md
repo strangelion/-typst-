@@ -15,7 +15,7 @@
 - **快速渲染** — 基于 Typst 引擎，实时编译，所见即所得
 - **完整的章节结构** — 预设从"摘要"到"致谢"的完整文档框架
 - **参考文献支持** — 集成 GB/T 7714 中文国标引用样式
-- **灵活配置** — 封面信息、显示顺序、附加功能（装订线、评分表）均可自由调整
+- **灵活配置** — 封面信息、显示顺序、附加功能（装订线、评分表、页眉）均可自由调整
 
 ---
 
@@ -72,7 +72,7 @@ typst compile --font-path ./resource/fonts main.typ paper.pdf
 ```
 HeBeiUniversity-template-Typst/
 ├── main.typ                  # 论文入口文件
-├── template.typ              # 核心样式模板
+├── template.typ              # 核心样式模板（封面、标题、三线表、公式编号等）
 ├── config.typ                # 元数据配置
 ├── references.bib            # 文献数据库
 ├── typst.toml                # 项目配置文件
@@ -82,9 +82,7 @@ HeBeiUniversity-template-Typst/
 ├── content/
 │   ├── abstract.typ          # 中英文摘要
 │   ├── acknowledgments.typ   # 致谢
-│   ├── chapter1.typ~6.typ    # 各章内容
-├── modules/
-│   └── utils.typ             # 工具函数
+│   └── chapter1.typ~6.typ    # 各章内容
 └── README.md
 ```
 
@@ -127,11 +125,63 @@ add-on: (1, 2),  // 1 = 装订线，2 = 评分表
 evaluation: (evaluation-data, evaluation-style),  // 评分表内容与样式
 ```
 
+### 正文页眉
+
+在 `config.typ` 中设置页眉：
+
+```typst
+header-text: "河北大学 课程论文",  // 正文页眉，设为 none 则不显示
+```
+
+页眉在封面页不显示，从摘要、目录到正文所有页面均显示。
+
+---
+
+## 内置功能
+
+### 三线表
+
+学术论文标准表格：顶线粗、栏目线细、底线粗，无竖线。
+
+```typst
+#three-line-table(
+  columns: (1fr, auto, auto),
+  [名称], [数量], [价格],
+  table.hline(stroke: 0.5pt),
+  [苹果], [3], [¥5],
+  [香蕉], [2], [¥3],
+)
+```
+
+### 带编号的公式
+
+块级公式，编号自动右对齐，格式为 `(章号-序号)`，换章自动重置。
+
+```typst
+#eq-block[$ a^2 + b^2 = c^2 $] <eq:pythagoras>
+```
+
+引用：`@eq:pythagoras`
+
+### 附录模式
+
+在附录内容前添加：
+
+```typst
+#appendix()
+```
+
+后续标题编号自动切换为 "附录A" "附录B" ...
+
+### 代码块样式
+
+行内代码 `raw` 和代码块都有等宽字体 + 浅灰背景 + 圆角样式，直接原生使用即可。
+
 ---
 
 ## 参考文献
 
-使用 GB/T 7714-2015 中文国标引用样式（numeric）。在 `references.bib` 中填入文献信息，正文用 `#cite` 引用：
+使用 GB/T 7714-2015 中文国标引用样式（numeric）。在 `references.bib` 中填入文献信息，正文用 `@key` 引用：
 
 ```typst
 根据文献 @ref1 的研究……
