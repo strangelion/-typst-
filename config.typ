@@ -50,4 +50,5 @@
   add-on: (1, 2), //是否启用附加信息，如果启用会增加按要求的特殊论文区域，1表示装订线，2表示分数表。
   //Whether to enable additional information, if enabled, it will add a special paper area as required, 1 represents the binding line, and 2 represents the score table.
   evaluation: (evaluation-data, evaluation-style),
+  header-text: "河北大学 课程论文", // 正文页眉内容（如"河北大学 课程论文"），设为 none 则不显示页眉
 )

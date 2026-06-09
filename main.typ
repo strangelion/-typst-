@@ -1,4 +1,4 @@
-#import "template.typ": template
+#import "template.typ": appendix, eq-block, template, three-line-table
 #import "config.typ": conf
 
 #show: doc => template(
@@ -21,6 +21,7 @@
   add-on: conf.add-on,
   evaluation-data: conf.evaluation.at(0),
   evaluation-style: conf.evaluation.at(1),
+  header-text: conf.header-text,
 )
 
 // 前言部分（罗马数字页码）

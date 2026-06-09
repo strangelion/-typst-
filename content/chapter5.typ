@@ -1,3 +1,5 @@
+#import "../template.typ": three-line-table, eq-block
+
 = 改进对策
 
 == 中间业务产品方面
@@ -18,4 +20,20 @@
 ) <tab-data>
 引用表格：@tab-data
 == 中间业务拓展能力方面
+学术论文标准表格：顶线粗、栏目线细、底线粗，无竖线。
+#three-line-table(
+  columns: (1fr, auto, auto),
+  [名称],
+  [数量],
+  [价格],
+  table.hline(stroke: 0.5pt),
+  [苹果],
+  [3],
+  [¥5],
+  [香蕉],
+  [2],
+  [¥3],
+)
+
+#eq-block[$ a^2 + b^2 = c^2 $] <eq:pythagoras>
 ……

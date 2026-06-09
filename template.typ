@@ -1,6 +1,6 @@
 #set text(lang: "zh", region: "cn")
 
-// 定义一个辅助函数：将字符串拆分并插入 1fr 间距实现两端对齐
+// 在字符间插入固定小间距，避免短字段被过度拉伸；对2-4字字段效果更好
 #let justify-text(body) = {
   if type(body) != str { return body }
   let chars = body.clusters()
@@ -8,8 +8,40 @@
   if n < 2 { return body }
   for (i, char) in chars.enumerate() {
     char
-    if i < n - 1 { h(1fr) }
+    if i < n - 1 { h(0.25em) }
   }
+}
+
+/// 三线表（学术论文标准格式）：顶线粗、栏目线细、底线粗，无竖线
+#let three-line-table(columns: auto, ..body) = table(
+  stroke: none,
+  columns: columns,
+  table.hline(stroke: 1.5pt),
+  ..body,
+  table.hline(stroke: 1.5pt),
+)
+
+/// 公式计数器（每章重置）
+#let equation-counter = counter("equation")
+
+/// 带编号的块级公式：编号自动右对齐，格式为 (章号-序号)
+#let eq-block(body) = context {
+  equation-counter.step()
+  let eq-num = equation-counter.get().at(0)
+  let h1 = counter(heading).at(here()).at(0)
+  let tag = numbering("1-1", h1, eq-num + 1)
+  grid(
+    columns: (1fr, auto),
+    column-gutter: 1em,
+    align: (center, bottom + right),
+    math.equation(block: true, body), text(size: 10.5pt)[（#tag）],
+  )
+}
+
+/// 切换到附录模式：章节编号改为字母
+#let appendix() = {
+  set heading(numbering: "附录A")
+  counter(heading).update(0)
 }
 
 #let template(
@@ -32,11 +64,17 @@
   add-on: none,
   evaluation-data: none,
   evaluation-style: none,
+  header-text: none,
 ) = {
-  // 1. 页面设置
+  // 1. 页面设置（页眉直接内联条件判断：封面页不显示）
   set page(
     paper: "a4",
     margin: (top: 3cm, bottom: 3cm, left: 2.5cm, right: 2.5cm),
+    header: context [
+      #if header-text != none and counter(page).get().first() > 1 {
+        align(center + horizon, text(size: 10.5pt, header-text))
+      }
+    ],
   )
 
   // 2. 基础字体和段落设置
@@ -213,6 +251,7 @@
   show heading.where(level: 1): it => {
     counter(figure.where(kind: image)).update(0)
     counter(figure.where(kind: table)).update(0)
+    equation-counter.update(0)
     it
   }
 
@@ -258,5 +297,26 @@
     strong(it)
   }
 
+  // 代码块样式 — 自动适配浅/深色主题
+  show raw.where(block: true): it => {
+    set text(font: ("JetBrains Mono", "Cascadia Code", "Fira Code", "Consolas"), size: 9.5pt)
+    block(
+      width: 100%,
+      inset: (top: 6pt, bottom: 6pt, left: 10pt, right: 10pt),
+      radius: 4pt,
+      fill: luma(245),
+      stroke: 0.5pt + luma(210),
+      it,
+    )
+  }
+  show raw.where(block: false): it => {
+    set text(font: ("JetBrains Mono", "Cascadia Code", "Fira Code", "Consolas"), size: 9.5pt)
+    box(
+      inset: (left: 4pt, right: 4pt),
+      fill: luma(245),
+      radius: 3pt,
+      it,
+    )
+  }
   doc
 }
