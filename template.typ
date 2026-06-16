@@ -61,7 +61,8 @@
   supervisor: (name: none, value: none, visible: none, depth: none),
   date: (name: none, value: datetime.today().display("[year]年[month]月[day]日"), visible: none, depth: none),
   info-order: none,
-  add-on: none,
+  binding_line: none,
+  score_table: none,
   evaluation-data: none,
   evaluation-style: none,
   header-text: none,
@@ -82,7 +83,7 @@
   set par(leading: 1em, first-line-indent: (amount: 2em, all: true), justify: true)
 
   // 3. 封面生成
-  if 1 in add-on {
+  if binding_line {
     // 1. 在封面左侧添加装订线 (相对于页面边缘定位)
     // 因为是在封面逻辑内，place 会作用于当前页
     place(left + top, dx: -1.5cm, dy: 5%)[
@@ -105,7 +106,7 @@
     ]
   }
 
-  if 2 in add-on {
+  if score_table {
     place(top + right, dx: 1cm, dy: -2.4cm)[
       #align(right)[
         #set text(size: evaluation-style.text-size)
@@ -140,8 +141,30 @@
 
     #context {
       // 1. 标签名（不含冒号）和值的映射
-      let all-names = ("4": school-semester.name, "5": school.name, "6": course-id.name, "7": course-name.name, "8": college.name, "9": author.name, "10": student-id.name, "11": class.name, "12": major.name, "13": supervisor.name)
-      let all-data = ("4": school-semester, "5": school, "6": course-id, "7": course-name, "8": college, "9": author, "10": student-id, "11": class, "12": major, "13": supervisor)
+      let all-names = (
+        "4": school-semester.name,
+        "5": school.name,
+        "6": course-id.name,
+        "7": course-name.name,
+        "8": college.name,
+        "9": author.name,
+        "10": student-id.name,
+        "11": class.name,
+        "12": major.name,
+        "13": supervisor.name,
+      )
+      let all-data = (
+        "4": school-semester,
+        "5": school,
+        "6": course-id,
+        "7": course-name,
+        "8": college,
+        "9": author,
+        "10": student-id,
+        "11": class,
+        "12": major,
+        "13": supervisor,
+      )
 
       // 2. 测量可见字段的最大宽度
       let visible = info-order.map(d => str(d)).filter(k => k in all-data and all-data.at(k).visible)

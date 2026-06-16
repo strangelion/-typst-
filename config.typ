@@ -47,8 +47,10 @@
   info-order: (4, 6, 7, 13, 10, 9, 11),
   //显示信息的顺序，可以根据需要调整顺序，数字对应上面 conf 中字段的 depth 值，默认1->3,14不会显示在封面文章信息上（即字段映射表中）。
   //The order of displayed information can be adjusted as needed, the numbers correspond to the depth values of the fields in conf above, by default it is 1->3,14 will not be displayed on the cover article information (that is, in the field mapping table).
-  add-on: (1, 2), //是否启用附加信息，如果启用会增加按要求的特殊论文区域，1表示装订线，2表示分数表。
-  //Whether to enable additional information, if enabled, it will add a special paper area as required, 1 represents the binding line, and 2 represents the score table.
+  binding_line: true,
+  score_table: true,
+  //是否启用附加信息，如果启用会增加按要求的特殊论文区域，binding_line表示装订线，score_table表示分数表。
+  //Whether to enable additional information, if enabled, it will add a special paper area as required, binding_line represents the binding line, and score_table represents the score table.
   evaluation: (evaluation-data, evaluation-style),
   header-text: none, // 正文页眉内容（如"河北大学 课程论文"），设为 none 则不显示页眉
 )
