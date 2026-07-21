@@ -19,7 +19,7 @@ jobs:
     steps:
       # 1. 获取你的仓库代码
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # 2. 安装 Typst 环境
       - name: Setup Typst
@@ -35,7 +35,7 @@ jobs:
 
       # 5. 上传编译好的 PDF 作为产物 (Artifact)
       - name: Upload PDF
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: project-pdf
           path: output.pdf
